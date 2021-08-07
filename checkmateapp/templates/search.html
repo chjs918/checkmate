@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% if searched %}
+        <h2 style="margin-bottom:50px;"><i>"{{searched}} 검색 결과입니다."</i></h2>
+        {% if searched_posts %}
+        {% for post in searched_posts %}
+        <article class="media content-section">
+            {% if post.img %}
+                <img class="rounded-circle article-img" src= "{{ post.image_thumbnail.url}}">
+            {% else %}
+                <img class="rounded-circle article-img" src="{% static 'no.png' %}">
+            {%endif%}
+            <div class="media-body">
+            <h2><a class="article-title" href="{%url 'detail' post.id %}">{{ post.title}}</a></h2>
+            {{ post.writer}}
+            <br>
+            {{post.mate_type}} | {{post.people_number}} 명
+            <br>
+            {{post.activity_area}} 
+            </div>
+        </article>
+
+    {% endfor %}
+        {% else %}
+        <pr>No results found.</pr>
+        {% endif %}
+
+    {% else %}
+        <h1> Please re-enter your search term! </h1>
+    {% endif %}
+
+
+    
+{% endblock %}

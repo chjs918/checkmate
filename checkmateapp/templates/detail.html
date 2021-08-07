@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{post.title}}</h1>
+<div>
+    {{post.writer}}
+<hr>
+{{post.mate_type}}
+<br>
+<h5>{{post.activity_area}} | {{post.people_number}} 명</h5>
+
+</div>
+<hr>
+{% if post.img %}
+<p><img src="{{post.img.url}}" width="500px"></p>
+{% endif %}
+
+<br>
+<h6>{{post.explanation}}</h6>
+<a href ="{% url 'edit' post.id %}">수정하기</a>
+<a href ="{% url 'delete' post.id %}">삭제하기</a>
+
+<br>
+{% endblock %}

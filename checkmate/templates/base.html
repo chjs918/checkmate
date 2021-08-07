@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <style>
+        body{text-align: center;}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href = "{%url 'home'%}" >
+            <div class="none">
+                <img src = "{% static 'no.png'%}" alt = "" width = "100" height = "100" >
+            </div>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href = "{%url 'signup' %}" >SignUp</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href = "{%url 'new'%}" >Write</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href = "{%url 'logout' %}" >Logout</a>
+                    </li>
+                    {{user.username}} 님이 로그인 중
+                {% endif %}
+              {% if not user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href = "{%url 'login' %}" >Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" >로그인하세요.</a>
+              </li>
+              {% endif %}
+            </div>
+
+            <form class="d-flex" action="{% url 'search' %}" method="post">
+                {%csrf_token%}
+                <select name="type">
+                    <option value="title">제목</option>
+                    <option value="writer">글쓴이</option>
+                    <option value="mate_type">메이트 종류</option>
+                    <option value="explanation">설명</option>
+                    <option value="activity_area">활동 지역</option>
+                </select> 
+                <input class="form-control me-2" type="search" aria-label="Search" placeholder="Search" name="keyword">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </form>
+        </div>
+      </nav>
+    
+<div class= "container">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

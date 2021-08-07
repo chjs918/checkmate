@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>나만의 메이트를 체크하다, 체크메이트</h1>
+    <br>
+    {% for post in posts %}
+        {%if post.img %}
+        <div>
+            <img src="{{post.image_thumbnail.url}}">
+        </div>
+        {%endif%}
+        <div class="card-header">{{post.title}}</div>
+        <div class="card-body">
+            {{post.writer}}
+            <br>
+            {{post.mate_type}} | {{post.people_number}} 명
+            <br>
+            {{post.activity_area}} 
+        </div>
+        <div>
+            <a href="{%url 'detail' post.id %}">...more</a>
+        </div> 
+        <br>
+    {% endfor %} 
+    </div>
+
+    <br>
+
+    {% if posts.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{posts.previous_page_number}}">Previous</a>
+    {% endif %}
+
+    <span>{{posts.number}}</span>
+    <span>of</span>
+    <span>{{posts.paginator.num_pages}}</span>
+
+    {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}">Next</a>
+        <a href="?page={{posts.paginator.num_pages}}">Last</a>
+    {% endif %}
+
+    <br> <br>
+    <div>
+        <a href="{%url 'new'%}" class="button1">write new</a>
+    </div>
+
+{% endblock %}
