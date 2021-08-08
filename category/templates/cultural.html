@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    .ll {
+        display: inline;
+        margin-left: 30px;
+    }
+</style>
+<div class="box">
+    <ul>
+        <li class="ll"><a href="{% url 'travel' %}">국내＆해외여행</a></li>
+        <li class="ll"><a href="{% url 'camping' %}">캠핑</a></li>
+        <li class="ll"><a href="{% url 'exercise' %}">운동</a></li>
+        <li class="ll"><a href="{% url 'study' %}">공부</a></li>
+        <li class="ll"><a href="{% url 'cultural' %}">문화 생활</a></li>
+    </ul>
+</div>
+
+<a href="{%url 'new'%}">글 작성하러 가기</a>
+{% for post in posts %}
+{% if post.mate_type == "문화생활" %}
+{%if post.img %}
+<div>
+    <img src="{{post.image_thumbnail.url}}">
+</div>
+{%endif%}
+<div class="card-header">{{post.title}}</div>
+<div class="card-body">
+    {{post.writer}}
+    <br>
+    {{post.mate_type}} | {{post.people_number}} 명
+    <br>
+    {{post.activity_area}}
+</div>
+<div>
+    <a href="{%url 'detail' post.id %}">...more</a>
+</div>
+<br>
+{% endif %}
+{% endfor %}
+{% endblock %}
