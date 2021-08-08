@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.utils import timezone
 from .models import Mate
 from .forms import mateForm
 from django.contrib import messages
@@ -25,6 +26,7 @@ def new(request):
         if form.is_valid():
             post = form.save(commit = False)
             post.writer = request.user
+            post.created_at = timezone.now()
             post.save()
             return redirect('detail', post.id)
         return redirect('home')
@@ -43,6 +45,7 @@ def edit(request, post_id):
         if form.is_valid():
             post = form.save(commit = False)
             post.writer = request.user
+            post.created_at = timezone.now()
             post.save()
             return redirect('/checkmateapp/detail/' + str(post_id))
         return redirect('home')
