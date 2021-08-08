@@ -24,6 +24,7 @@ def new(request):
         form = mateForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit = False)
+            post.writer = request.user
             post.save()
             return redirect('detail', post.id)
         return redirect('home')
@@ -41,6 +42,7 @@ def edit(request, post_id):
         form = mateForm(request.POST, request.FILES, instance = post)
         if form.is_valid():
             post = form.save(commit = False)
+            post.writer = request.user
             post.save()
             return redirect('/checkmateapp/detail/' + str(post_id))
         return redirect('home')
