@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+      a {
+        text-decoration: none;
+        color: black;
+    }
+    .dd {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .main {
+        border: 1px solid black;
+        margin-left: 5px;
+        display: inline-block;
+        width: 400px;
+    }
+
+    .main2 {
+        border: 1px solid black;
+    }
+
+    .mate {
+        float: left;
+    }
+</style>
+
+
+<h1>체크메이트</h1>
+<h4>나만의 메이트를 체크하다</h4>
+<img src = "{% static 'mate.png' %}" alt = "" width = "800" height = "400">
+<br><br><br><br><br><br>
+<div class="dd">
+    <a href="{% url 'travel' %}" class="mate">메이트 찾아보기 ▷</a>
+    <br>
+    <div class="main">
+        {% for post in posts %}
+        {% if post.id < 5 %} <div class="main2">
+            {{post.title}}|{{post.writer}}|{{post.mate_type}} | {{post.people_number}} 명
+            <a href="{%url 'detail' post.id %}">...more</a><br>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+</div>
+
+<div class="dd">
+    <a href="#">{{user.mbti}}추천 메이트 글 </a>
+    <br>
+    <div class="main">
+        {% for post in posts %}
+        {% if user.mbti == post.writer.mbti%}
+        <div class="main2">
+            {{post.title}}|{{post.writer}}|{{post.mate_type}} | {{post.people_number}} 명
+            <a href="{%url 'detail' post.id %}">...more</a><br>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="dd">
+    <a href="#">지역 추천 메이트 글 </a>
+    <br>
+    <div class="main">
+        {% for post in posts %}
+        {% if user.location == post.writer.location%}
+        <div class="main2">
+            {{post.title}}|{{post.writer}}|{{post.mate_type}} | {{post.people_number}} 명
+            <a href="{%url 'detail' post.id %}">...more</a><br>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endblock %}
+</div>
