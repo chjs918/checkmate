@@ -28,7 +28,7 @@
 
 <a href="{%url 'new'%}">글 작성하러 가기</a>
 {% for post in posts %}
-{% if post.mate_type == "운동" %}
+{% if post.mate_type == "운동 메이트" %}
 {%if post.img %}
 <div>
     <img src="{{post.image_thumbnail.url}}">
