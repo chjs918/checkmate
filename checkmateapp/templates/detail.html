@@ -19,8 +19,18 @@
 
 <br>
 <h6>{{post.explanation}}</h6>
-<a href ="{% url 'edit' post.id %}">수정하기</a>
-<a href ="{% url 'delete' post.id %}">삭제하기</a>
+
+{% if user.is_authenticated %}
+    {% if user == post.writer %}
+        <a href ="{% url 'edit' post.id %}">수정하기</a>
+        <a href ="{% url 'delete' post.id %}">삭제하기</a>
+    {% endif %}
+{% else %}
+    <script type="text/javascript">
+        alert('로그인이 필요합니다.');
+        window.location.href = '{% url "login" %}';
+    </script>
+{% endif %}
 
 <br>
 {% endblock %}
