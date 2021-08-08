@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'checkmateapp.apps.CheckmateappConfig',
     'account.apps.AccountConfig',
+    'category.apps.CategoryConfig',
 
     'imagekit',
     'crispy_forms',
