@@ -19,6 +19,8 @@ class Mate(models.Model):
     activity_area = models.CharField(max_length=50)
     explanation = models.TextField()
     people_number = models.CharField(max_length=50)
+    created_at = models.DateTimeField()
+
     img = models.ImageField(upload_to="mate/", blank = True, null = True)
     image_thumbnail = ImageSpecField(source = 'img', processors=[ResizeToFill(120,100)])
 
