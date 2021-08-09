@@ -9,39 +9,69 @@
     .ll {
         display: inline;
         margin-left: 30px;
-    }    
-</style>
-<div class="box">
-    <ul>
-        <li class="ll"><a href="{% url 'travel' %}">국내＆해외여행</a></li>
-        <li class="ll"><a href="{% url 'camping' %}">캠핑</a></li>
-        <li class="ll"><a href="{% url 'exercise' %}">운동</a></li>
-        <li class="ll"><a href="{% url 'study' %}">공부</a></li>
-        <li class="ll"><a href="{% url 'cultural' %}">문화 생활</a></li>
-    </ul>
-</div>
+    }   
 
-<a href="{%url 'new'%}">글 작성하러 가기</a>
+    #btgroup {
+        display: flex;
+        justify-content: center;
+    }
+
+    #bttext {
+        color: white;
+    }
+
+    #thumbnail {
+        float: left;
+    }
+
+</style>
+
+
+<div id="btgroup" class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group" role="group" aria-label="First group">
+      <button type="button" class="btn btn-outline-secondary"><a href="{% url 'travel' %}">국내 ＆ 해외여행</a></li></button>
+      <button type="button" class="btn btn-outline-secondary"><a href="{% url 'camping' %}">캠핑</a></button>
+      <button type="button" class="btn btn-outline-secondary"><a href="{% url 'exercise' %}">운동</a></button>
+      <button type="button" class="btn btn-outline-secondary"><a href="{% url 'study' %}">공부</a></button>
+      <button type="button" class="btn btn-outline-secondary"><a href="{% url 'cultural' %}">문화 생활</a></button>
+    </div>
+  </div>
 
 {% for post in posts %}
 {% if post.mate_type == "국내•해외여행 메이트" %}
-{%if post.img %}
-<div>
-    <img src="{{post.image_thumbnail.url}}">
-</div>
-{%endif%}
+
+
 <div class="card-header">{{post.title}}</div>
 <div class="card-body">
-    {{post.writer}}
-    <br>
+
+    {%if post.img %}
+    <a href="{%url 'detail' post.id %}">
+    <img id="thumbnail" src="{{post.image_thumbnail.url}}">
+    </a>
+    {%endif%}
+
+
     {{post.mate_type}} | {{post.people_number}} 명
     <br>
-    {{post.activity_area}}
+    작성자 : {{post.writer}}
+    <br>
+    지역 : {{post.activity_area}}
 </div>
+
 <div>
-    <a href="{%url 'detail' post.id %}">...more</a>
+    <a href="{%url 'detail' post.id %}">자세히 보기</a>
 </div>
+<hr>
 <br>
+
+
+
 {% endif %}
 {% endfor %}
+
+<button class="btn btn-dark" type="submit">
+    <a id="bttext" href="{%url 'new'%}">글 작성하러 가기</a>
+</button>
+
+
 {% endblock %}

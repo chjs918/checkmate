@@ -17,6 +17,11 @@
           font-family: 'Noto Sans KR', sans-serif;
           }
 
+        #logo {
+          width: 50px;
+          height: 50px;
+        }
+
         #status {
           float: right;
           padding: 10px;
@@ -65,9 +70,29 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href = "{%url 'new'%}" >메이트 찾기</a>
                     </li>
-                    <li class="nav-item"></li>
+
+
+                    <!-- <li class="nav-item"></li>
                         <a class="nav-link" href = "{%url 'travel' %}" >카테고리</a>
+                    </li> -->
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        카테고리
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{%url 'travel' %}" >국내 & 해외여행</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'camping' %}" >캠핑</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'exercise' %}" >운동</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'study' %}" >공부</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'cultural' %}" >문화생활</a></li>
+                      </ul>
                     </li>
+
                     <li class="nav-item"></li>
                         <a class="nav-link" href = "{%url 'logout' %}" >로그아웃</a>
                     </li>
@@ -128,7 +153,9 @@
     {% block content %}
     {% endblock %}
     <hr>
-    멋쟁이사자처럼 9기  |  소울메이트  |  김지원 김유림 정재운 최지수  |  <a id="corp" href="{% url 'explanation' %}">ⓒ Checkmate Corp.</a>
+    멋쟁이사자처럼 9기  |  소울메이트  |  김유림 김지원 정재운 최지수  |  <img id="logo" src="{% static 'checkmate3.png'%}">
+    <a id="corp" href="{% url 'explanation' %}">ⓒ Checkmate Corp.</a>
+    
 </div>
 </body>
 </html>

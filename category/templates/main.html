@@ -42,6 +42,18 @@
         width: 800px;
     }
 
+    #subtitle {
+        float: left;
+        margin-left: 2%;
+    }
+
+    .check {
+        height: 20px;
+        width: 20px;
+        float: left;
+        margin-left: 30px;
+    }
+
 </style>
 
 <br><br>
@@ -53,7 +65,7 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img id="slideimg" src="{% static 'black.jpeg'%}" class="d-block w-100" alt="...">
+        <img id="slideimg" src="{% static 'sunset.jpeg'%}" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <p>나만의 메이트를 체크하다,</p>
           <h5>체크메이트</h5>
@@ -88,15 +100,11 @@
   </div>
 
   
-<!-- <div class="ex">
-    <h1>체크메이트</h1>
-    <h4 style="color:gray;">나만의 메이트를 체크하다</h4>
-    <a href="{% url 'explanation' %}">체크메이트란?▷</a>
-</div> -->
 
-<br><br><br><br><br><br>
+<br><br><br><br>
 <div>
-    <a href="{% url 'travel' %}" style="text-align: left;">메이트 찾아보기 ▷</a>
+    <img class="check" src="{% static 'check.png'%}">
+    <a id="subtitle" href="{% url 'travel' %}" style="text-align: left;">메이트 찾아보기</a>
     <br>
     <div class="main">
         {% for post in posts %}
@@ -116,12 +124,13 @@
         {% endfor %}
     </div>
 </div>
-<br>
+<br><br>
 <div>
-    <a href="#">{{user.mbti}}추천 메이트 글 </a>
+    <img class="check" src="{% static 'check.png'%}">
+    <a id="subtitle" href="#">{{user.mbti}} 추천 메이트 글 </a>
     <br>
     <div class="main">
-        {% for post in posts %}
+        {% for post in posts %} 
         {% if user.mbti == post.writer.mbti%}
         <div class="main2">
             <table>
@@ -140,9 +149,10 @@
         {% endfor %}
     </div>
 </div>
-<br>
+<br><br>
 <div>
-    <a href="#">지역 추천 메이트 글 </a>
+    <img class="check" src="{% static 'check.png'%}">
+    <a id="subtitle" href="#">지역 추천 메이트 글 </a>
     <br>
     <div class="main">
         {% for post in posts %}
