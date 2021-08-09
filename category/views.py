@@ -25,3 +25,6 @@ def study(request):
 def cultural(request):
     posts = Mate.objects.all()
     return render(request,'cultural.html',{'posts' : posts})
+
+def explanation(request):
+    return render(request, 'explanation.html')
