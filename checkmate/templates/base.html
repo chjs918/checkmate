@@ -58,19 +58,22 @@
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href = "{%url 'new'%}" >Write</a>
+                        <a class="nav-link active" aria-current="page" href = "{%url 'new'%}" >메이트 찾기</a>
                     </li>
                     <li class="nav-item"></li>
-                        <a class="nav-link" href = "{%url 'logout' %}" >Logout</a>
+                        <a class="nav-link" href = "{%url 'travel' %}" >카테고리</a>
+                    </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link" href = "{%url 'logout' %}" >로그아웃</a>
                     </li>
                     {% endif %}
 
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
-                      <a class="nav-link" href = "{%url 'signup' %}" >SignUp</a>
+                      <a class="nav-link" href = "{%url 'signup' %}" >회원가입</a>
                   </li>
                     <li class="nav-item">
-                      <a class="nav-link" href = "{%url 'login' %}" >Login</a>
+                      <a class="nav-link" href = "{%url 'login' %}" >로그인</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" >로그인하세요.</a>
@@ -119,6 +122,8 @@
 <div class="container">
     {% block content %}
     {% endblock %}
+    <hr>
+    멋쟁이사자처럼 9기  |  소울메이트  |  김지원 김유림 정재운 최지수  |  <a href="{% url 'explanation' %}">ⓒ Checkmate Corp.</a>
 </div>
 </body>
 </html>
