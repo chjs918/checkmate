@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.utils import timezone
-from .models import Mate
-from .forms import mateForm
+from .models import Mate, Comment
+from .forms import mateForm, CommentForm
 from django.contrib import messages
 from django.db.models import Q 
 
@@ -18,7 +18,14 @@ def home(request):
 
 def detail(request, post_id):
     post_detail = get_object_or_404(Mate, pk = post_id)
-    return render(request, 'detail.html' ,{'post' : post_detail})
+    comments = Comment.objects.filter(post_id=post_id, comment_id__isnull=True)
+
+    re_comments = []
+    for comment in comments:
+        re_comments += list(Comment.objects.filter(comment_id=comment.id))
+    
+    form = CommentForm()
+    return render(request, 'detail.html' ,{'post' : post_detail, 'comments' : comments, 're_comments' : re_comments, 'form':form})
 
 def new(request):
     if request.method == 'POST': #폼 다채우고 저장버튼 눌렀을 때
@@ -74,4 +81,32 @@ def search(request):
         return render(request, 'search.html', {'searched':keyword, 'searched_posts': searched_posts})
     else:
          return render(request, 'search.html')
+
+def create_comment(request, article_id):
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post_id = Mate.objects.get(pk=article_id)
+            comment.author = request.user
+            comment.created_at = timezone.now()
+            comment.save()
+    return redirect('detail', article_id)
+
+def create_re_comment(request, article_id, comment_id):
+    if request.method == 'POST':
+        comment_form= CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post_id = Mate.objects.get(pk=article_id)
+            comment.comment_id = Comment.objects.get(pk=comment_id)
+            comment.author = request.user
+            comment.created_at = timezone.now()
+            comment.save()
+    return redirect('detail', article_id)
+
+def delete_comment(request, comment_id, article_id):
+    mycom = Comment.objects.get(id=comment_id)
+    mycom.delete()
+    return redirect('detail', article_id)
 

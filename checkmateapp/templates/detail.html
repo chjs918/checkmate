@@ -1,6 +1,54 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    #comment_form {
+        text-align: left;
+        background-color: rgb(104, 104, 104);
+        border-radius: 100px;
+        padding:2% 10%;
+        margin: 3% 5%;
+    }
+
+    input {
+        width: 30%;
+    }
+
+    textarea {
+        resize: none;
+        width:80%; 
+        height:100px;
+    }
+
+    #submit {
+        width:100px;
+    }
+
+    .comment {
+        text-align: left;
+        background-color: rgb(104, 104, 104);
+        border-radius: 100px;
+        padding:2% 10%;
+        margin: 3% 5%;
+    }
+
+    .first_comment{
+        border-radius: 30px;
+        border : 1px solid rgb(27, 27, 27);
+        font-weight: bolder;
+        padding:2% 4%;
+        background-color: rgb(226, 226, 226);
+    }
+
+    .recomment{
+        border-radius: 30px;
+        font-weight: bolder;
+    }
+
+    h4 {
+        text-align: center;
+    }
+</style>
 <h1>{{post.title}}</h1>
 <div>
     {{post.writer}}
@@ -14,7 +62,7 @@
 </div>
 <hr>
 {% if post.img %}
-<p><img src="{{post.img.url}}" width="500px"></p>
+<p><img src="{{post.img.url}}" width="500px" height="500px"></p>
 {% endif %}
 
 <br>
@@ -32,5 +80,53 @@
     </script>
 {% endif %}
 
+{% if user.is_authenticated %}
+<br><br><br>
+<h3>Write Comment</h3>
+    <form method="POST" action="{% url 'create_comment' post.id %}" id="comment_form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="submit" id="submit">
+    </form>
+
+{% for comment in comments %}
 <br>
+<div class="comment">
+    <h4>Comment</h4>
+    <div class="first_comment">
+        <p>작성자: {{comment.author}}</p>
+        <p>작성 시간: {{comment.created_at|date:'Y-m-d H:i'}}</p>
+        <p>내용 : {{comment.body}}</p>
+        {% if user == comment.author %}
+            <a href="{% url 'delete_comment' post.id comment.id%}">삭제</a>
+        {% endif %}
+    </div>
+<div>
+    <br><h4>Recomment</h4><br>
+    {% for re_comment in re_comments %}
+        {% if comment == re_comment.comment_id %}
+            <div class="recomment">
+            <p>ㄴ작성자 : {{re_comment.author}}</p>
+            <p>ㄴ작성 시간: {{re_comment.created_at|date:'Y-m-d H:i'}}</p>
+            <p>ㄴ내용 : {{re_comment.body}}</p>
+            {% if user == re_comment.author %}
+                <a href="{% url 'delete_comment' post.id re_comment.id%}">삭제</a>
+            {% endif %}
+            <hr>
+        </div>
+        <br>
+        {% endif %}
+    {% endfor %} 
+
+    <form action = "{% url 'create_re_comment' post.id comment.id%}" method = "post" enctype = "multipart/form-data">
+        <h3>Write Recomment</h3>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">대댓글쓰기</button>
+    </form>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
 {% endblock %}
