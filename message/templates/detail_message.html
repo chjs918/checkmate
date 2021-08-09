@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+  {% block content %}
+  <title>Detail Message</title>
+  </head>
+  <body>
+    <h1>Detail Your Message</h1><br>
+    <div class="container">
+      <div class="card border-dark" style="width: 25rem; margin: auto;" >
+        <div class="card-body">
+          <h3 class="card-title">{{message.content}}</h3>
+          <p class="card-text">보낸이: {{message.sender}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">보낸 날짜: {{message.send_date|date:'Y-m-d H:i'}}</li>
+        </ul>
+        <div class="card-footer text-muted">받는이: {{message.receiver}}</div>
+        <div class="card-body">
+            <a href="{% url 'message:receive_box' %}" class="card-link" style="font-size: large; font-style: italic;">받은 쪽지함</a>
+            <a href="{% url 'message:send_box' %}" class="card-link" style="font-size: large; font-style: italic;">보낸 쪽지함</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}

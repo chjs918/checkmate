@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'checkmateapp.apps.CheckmateappConfig',
     'account.apps.AccountConfig',
     'category.apps.CategoryConfig',
+    'message.apps.MessageConfig',
 
     'imagekit',
     'crispy_forms',

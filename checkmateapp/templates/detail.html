@@ -72,6 +72,8 @@
     {% if user == post.writer %}
         <a href ="{% url 'edit' post.id %}">수정하기</a>
         <a href ="{% url 'delete' post.id %}">삭제하기</a>
+    {% else %}
+        <a href ="{% url 'message:new_message' post.id %}">쪽지 보내기</a>
     {% endif %}
 {% else %}
     <script type="text/javascript">
