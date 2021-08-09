@@ -4,9 +4,8 @@
 <style>
     #comment_form {
         text-align: left;
-        background-color: rgb(104, 104, 104);
-        border-radius: 100px;
-        padding:2% 10%;
+        /* border-radius: 100px; */
+        padding:2% 5%;
         margin: 3% 5%;
     }
 
@@ -17,7 +16,7 @@
     textarea {
         resize: none;
         width:80%; 
-        height:100px;
+        height:70px;
     }
 
     #submit {
@@ -26,28 +25,60 @@
 
     .comment {
         text-align: left;
-        background-color: rgb(104, 104, 104);
-        border-radius: 100px;
-        padding:2% 10%;
+        background-color:whitesmoke;
+        /* border-radius: 100px; */
+        padding:2% 5%;
         margin: 3% 5%;
     }
 
+    form {
+        color:transparent;
+    }
+
     .first_comment{
-        border-radius: 30px;
-        border : 1px solid rgb(27, 27, 27);
+        /* border-radius: 30px; */
+        border : 1px solid black;
         font-weight: bolder;
-        padding:2% 4%;
-        background-color: rgb(226, 226, 226);
+        padding:2% 5%;
+        background-color: white;
     }
 
     .recomment{
-        border-radius: 30px;
+        /* border-radius: 30px; */
         font-weight: bolder;
     }
 
     h4 {
         text-align: center;
     }
+
+    button {
+        float: right;
+    }
+
+    .comment a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .comment {
+        line-height: 5px;
+    }
+
+    .recomment {
+        line-height: 5px;
+    }
+
+
+    #black {
+        color: black;
+        float: right;
+    }
+
+    .crm {
+        float: center;
+    }
+
 </style>
 <h1>{{post.title}}</h1>
 <div>
@@ -84,47 +115,50 @@
 
 {% if user.is_authenticated %}
 <br><br><br>
-<h3>Write Comment</h3>
+<!-- <h3>Write Comment</h3> -->
+<p class="crm">댓글</p>
     <form method="POST" action="{% url 'create_comment' post.id %}" id="comment_form">
         {% csrf_token %}
         {{form.as_p}}
-        <input type="submit" value="submit" id="submit">
+        <button type="submit" class="btn btn-dark">댓글쓰기</button>
     </form>
 
 {% for comment in comments %}
 <br>
 <div class="comment">
-    <h4>Comment</h4>
     <div class="first_comment">
         <p>작성자: {{comment.author}}</p>
         <p>작성 시간: {{comment.created_at|date:'Y-m-d H:i'}}</p>
         <p>내용 : {{comment.body}}</p>
         {% if user == comment.author %}
-            <a href="{% url 'delete_comment' post.id comment.id%}">삭제</a>
+        <a id="black" href="{% url 'delete_comment' post.id comment.id%}">삭제하기</a>
         {% endif %}
     </div>
 <div>
-    <br><h4>Recomment</h4><br>
     {% for re_comment in re_comments %}
         {% if comment == re_comment.comment_id %}
-            <div class="recomment">
+            <div class="recomment"><br><br>
             <p>ㄴ작성자 : {{re_comment.author}}</p>
             <p>ㄴ작성 시간: {{re_comment.created_at|date:'Y-m-d H:i'}}</p>
             <p>ㄴ내용 : {{re_comment.body}}</p>
+
             {% if user == re_comment.author %}
-                <a href="{% url 'delete_comment' post.id re_comment.id%}">삭제</a>
+            <a id="black" href="{% url 'delete_comment' post.id re_comment.id%}">삭제하기</a>
+            <br>
             {% endif %}
+
             <hr>
         </div>
         <br>
         {% endif %}
     {% endfor %} 
 
+    <br><br>
+    <p class="crm">대댓글</p>
     <form action = "{% url 'create_re_comment' post.id comment.id%}" method = "post" enctype = "multipart/form-data">
-        <h3>Write Recomment</h3>
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">대댓글쓰기</button>
+        <button type="submit" class="btn btn-dark">대댓글쓰기</button>
     </form>
 </div>
 </div>
