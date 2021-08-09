@@ -3,20 +3,21 @@
 {% block content %}
 {% load static %}
 <style>
-      a {
+    a {
         text-decoration: none;
-        color: black;
     }
+
     .dd {
         display: inline-block;
         margin-right: 10px;
     }
 
     .main {
-        border: 1px solid black;
+        border: 2px solid black;
         margin-left: 5px;
         display: inline-block;
         width: 400px;
+        box-shadow: 5px 5px gray;
     }
 
     .main2 {
@@ -26,25 +27,47 @@
     .mate {
         float: left;
     }
+
+    .ex {
+        display: inline-block;
+        background-color: rgba(153, 149, 149, 0.637);
+        width: 700px;
+        height: 350px;
+        background-size: 300px;
+        margin-top: 50px;
+        color: white;
+        padding-top: 120px;
+    }
+
 </style>
 
+<div class="ex">
+    <h1>체크메이트</h1>
+    <h4 style="color:gray;">나만의 메이트를 체크하다</h4>
+    <a href="{% url 'explanation' %}">체크메이트란?▷</a>
+</div>
 
-<h1>체크메이트</h1>
-<h4>나만의 메이트를 체크하다</h4>
-<img src = "{% static 'mate.png' %}" alt = "" width = "800" height = "400">
 <br><br><br><br><br><br>
 <div class="dd">
     <a href="{% url 'travel' %}" class="mate">메이트 찾아보기 ▷</a>
     <br>
     <div class="main">
         {% for post in posts %}
-        {% if post.id < 5 %} <div class="main2">
-            {{post.title}}|{{post.writer}}|{{post.mate_type}} | {{post.people_number}} 명
-            <a href="{%url 'detail' post.id %}">...more</a><br>
+        <div class="main2">
+            <table>
+                <tr>
+                    {%if post.img %} <td rowspan="2"><img src="{{post.image_thumbnail.url}}"></td>{%endif%}
+                    <td>
+                        <a href="{%url 'detail' post.id %}" style="text-decoration: none; color:black;">{{post.title}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{post.writer}}| {{post.mate_type}} | {{post.people_number}} 명</td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
-</div>
 </div>
 
 <div class="dd">
@@ -54,8 +77,17 @@
         {% for post in posts %}
         {% if user.mbti == post.writer.mbti%}
         <div class="main2">
-            {{post.title}}|{{post.writer}}|{{post.mate_type}} | {{post.people_number}} 명
-            <a href="{%url 'detail' post.id %}">...more</a><br>
+            <table>
+                <tr>
+                    {%if post.img %} <td rowspan="2"><img src="{{post.image_thumbnail.url}}"></td>{%endif%}
+                    <td>
+                        <a href="{%url 'detail' post.id %}" style="text-decoration: none; color:black;">{{post.title}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{post.writer}}| {{post.mate_type}} | {{post.people_number}} 명</td>
+                </tr>
+            </table>
         </div>
         {% endif %}
         {% endfor %}
@@ -69,8 +101,17 @@
         {% for post in posts %}
         {% if user.location == post.writer.location%}
         <div class="main2">
-            {{post.title}}|{{post.writer}}|{{post.mate_type}} | {{post.people_number}} 명
-            <a href="{%url 'detail' post.id %}">...more</a><br>
+            <table>
+                <tr>
+                    {%if post.img %} <td rowspan="2"><img src="{{post.image_thumbnail.url}}"></td>{%endif%}
+                    <td>
+                        <a href="{%url 'detail' post.id %}" style="text-decoration: none;color:black;">{{post.title}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{post.writer}}| {{post.mate_type}} | {{post.people_number}} 명</td>
+                </tr>
+            </table>
         </div>
         {% endif %}
         {% endfor %}
