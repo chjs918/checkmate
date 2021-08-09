@@ -38,6 +38,11 @@
         #info {
           margin-left: 10px;
         }
+
+        #corp {
+          text-decoration: none;
+          color: black;
+        }
       
     </style>
 </head>
@@ -123,7 +128,7 @@
     {% block content %}
     {% endblock %}
     <hr>
-    멋쟁이사자처럼 9기  |  소울메이트  |  김지원 김유림 정재운 최지수  |  <a href="{% url 'explanation' %}">ⓒ Checkmate Corp.</a>
+    멋쟁이사자처럼 9기  |  소울메이트  |  김지원 김유림 정재운 최지수  |  <a id="corp" href="{% url 'explanation' %}">ⓒ Checkmate Corp.</a>
 </div>
 </body>
 </html>
