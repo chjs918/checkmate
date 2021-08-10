@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+
+    <title>받은 쪽지함</title>
+    </head>
+
+    <style>
+    .msg {
+        text-decoration: none;
+        color: white;
+    }
+
+    </style>
+
+        <h1>받은 쪽지함</h1><br>
+        <div class="container">
+            <div style="text-align: right;">
+                <button class="btn btn-dark">
+                    <a class=msg href="{%url 'message:send_box' %}">보낸 쪽지함</a>
+                </button>
+            </div><br>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>보낸이 ID</th>
+                    <th>받는이 ID</th>
+                    <th>내용</th>
+                    <th>보낸 시간</th>
+                    <th>자세히</th>
+                </tr>
+                {% for message in messages %} 
+                <tr>
+                    <td>{{message.sender}}</td>
+                    <td>{{message.receiver}}</td>
+                    <td>{{message.summary}}</td>
+                    <td>{{message.send_date|date:'Y-m-d H:i'}}</td> 
+                    <td><a href="{%url 'message:detail_message' message.id %}">펼쳐보기</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
+{% endblock %}

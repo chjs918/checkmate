@@ -2,6 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
+    <title>나만의 메이트를 체크하다, 체크메이트</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,11 @@
           text-align: center;
           font-family: 'Noto Sans KR', sans-serif;
           }
+
+        #logo {
+          width: 50px;
+          height: 50px;
+        }
 
         #status {
           float: right;
@@ -38,8 +44,14 @@
         #info {
           margin-left: 10px;
         }
+
+        #corp {
+          text-decoration: none;
+          color: black;
+        }
       
     </style>
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,22 +70,54 @@
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href = "{%url 'new'%}" >Write</a>
+                        <a class="nav-link active" aria-current="page" href = "{%url 'new'%}" >메이트 찾기</a>
                     </li>
-                    <li class="nav-item"></li>
-                        <a class="nav-link" href = "{%url 'logout' %}" >Logout</a>
+
+
+                    <!-- <li class="nav-item"></li>
+                        <a class="nav-link" href = "{%url 'travel' %}" >카테고리</a>
+                    </li> -->
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        카테고리
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{%url 'travel' %}" >국내 & 해외여행</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'camping' %}" >캠핑</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'exercise' %}" >운동</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'study' %}" >공부</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{%url 'cultural' %}" >문화생활</a></li>
+                      </ul>
                     </li>
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        쪽지
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{%url 'message:receive_box' %}" >받은 쪽지함</a></li>
+                        <li><a class="dropdown-item" href="{%url 'message:send_box' %}" >보낸 쪽지함</a></li>
+                      </ul>
+                    </li>
+
+
+
                     <li class="nav-item"></li>
-                        <a class="nav-link" href = "{%url 'travel' %}" >Category</a>
+                        <a class="nav-link" href = "{%url 'logout' %}" >로그아웃</a>
                     </li>
                     {% endif %}
 
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
-                      <a class="nav-link" href = "{%url 'signup' %}" >SignUp</a>
+                      <a class="nav-link" href = "{%url 'signup' %}" >회원가입</a>
                   </li>
                     <li class="nav-item">
-                      <a class="nav-link" href = "{%url 'login' %}" >Login</a>
+                      <a class="nav-link" href = "{%url 'login' %}" >로그인</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" >로그인하세요.</a>
@@ -122,6 +166,10 @@
 <div class="container">
     {% block content %}
     {% endblock %}
+    <hr>
+    멋쟁이사자처럼 9기  |  소울메이트  |  김유림 김지원 정재운 최지수  |  <img id="logo" src="{% static 'checkmate3.png'%}">
+    <a id="corp" href="{% url 'explanation' %}">ⓒ Checkmate Corp.</a>
+    
 </div>
 </body>
 </html>

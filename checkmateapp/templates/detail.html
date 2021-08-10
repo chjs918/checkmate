@@ -1,29 +1,133 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{post.title}}</h1>
-<div>
-    {{post.writer}}
-    <br>
-    {{post.created_at|date:'Y-m-d H:i'}}
+<style>
+    #comment_form {
+        text-align: left;
+        /* border-radius: 100px; */
+        padding:2% 5%;
+        margin: 3% 5%;
+    }
+
+    input {
+        width: 30%;
+    }
+
+    textarea {
+        resize: none;
+        width:80%; 
+        height:70px;
+    }
+
+    #submit {
+        width:100px;
+    }
+
+    .comment {
+        text-align: left;
+        background-color:whitesmoke;
+        /* border-radius: 100px; */
+        padding:2% 5%;
+        margin: 3% 5%;
+    }
+
+    form {
+        color:transparent;
+    }
+
+    .first_comment{
+        /* border-radius: 30px; */
+        border : 1px solid black;
+        font-weight: bolder;
+        padding:2% 5%;
+        background-color: white;
+    }
+
+    .recomment{
+        /* border-radius: 30px; */
+        font-weight: bolder;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    .comment a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .msg {
+        text-decoration: none;
+        color: white;
+    }
+    
+    #message {
+        text-align: center;
+    }
+
+    .comment {
+        line-height: 5px;
+    }
+
+    .recomment {
+        line-height: 5px;
+        margin: 10px 30px 10px 30px;
+    }
+
+
+    #black {
+        color: black;
+        float: right;
+        text-decoration: none;
+    }
+
+    .crm {
+        float: center;
+    }
+
+
+    #right {
+        float: right;
+    }
+
+
+</style>
+
 <hr>
 {{post.mate_type}}
 <br>
 <h5>{{post.activity_area}} | {{post.people_number}} 명</h5>
-
-</div>
 <hr>
-{% if post.img %}
-<p><img src="{{post.img.url}}" width="500px"></p>
-{% endif %}
 
-<br>
-<h6>{{post.explanation}}</h6>
+<h1>{{post.title}}</h1>
+<div>
+    {{post.created_at|date:'Y-m-d H:i'}}
+    <br>
+    {{post.writer}}
 
-{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
     {% if user == post.writer %}
-        <a href ="{% url 'edit' post.id %}">수정하기</a>
-        <a href ="{% url 'delete' post.id %}">삭제하기</a>
+    {% else %}
+    <br>
+    <button id="message" type="submit" class="btn btn-dark">
+        <a class="msg" href="{% url 'message:new_message' post.id %}">{{post.writer}}에게 쪽지 보내기</a>
+    </button>
+    <br>
+    
+    {% endif %}
+    {% else %}
+    <script type="text/javascript">
+        alert('로그인이 필요합니다.');
+        window.location.href = '{% url "login" %}';
+    </script>
+    {% endif %}
+    <hr>
+
+    {% if user.is_authenticated %}
+    {% if user == post.writer %}
+        <a id="black" href="{% url 'edit' post.id %}">수정하기</a><br>
+        <a id="black" href="{% url 'delete' post.id %}">삭제하기</a><br>
     {% endif %}
 {% else %}
     <script type="text/javascript">
@@ -32,5 +136,65 @@
     </script>
 {% endif %}
 
+{% if post.img %}
+<p><img src="{{post.img.url}}" width="500px" height="500px"></p>
+{% endif %}
+
 <br>
+<h6>{{post.explanation}}</h6>
+
+
+
+{% if user.is_authenticated %}
+<br><br><br>
+<!-- <h3>Write Comment</h3> -->
+<p class="crm">댓글</p>
+    <form method="POST" action="{% url 'create_comment' post.id %}" id="comment_form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button id="right" type="submit" class="btn btn-dark">댓글쓰기</button>
+    </form>
+
+{% for comment in comments %}
+<br>
+<div class="comment">
+    <div class="first_comment">
+        <p>작성자: {{comment.author}}</p>
+        <p>작성 시간: {{comment.created_at|date:'Y-m-d H:i'}}</p>
+        <p>내용 : {{comment.body}}</p>
+        {% if user == comment.author %}
+        <a id="black" href="{% url 'delete_comment' post.id comment.id%}">삭제하기</a>
+        {% endif %}
+    </div>
+<div>
+    {% for re_comment in re_comments %}
+        {% if comment == re_comment.comment_id %}
+            <div class="recomment"><br><br>
+            <p>작성자 : {{re_comment.author}}</p>
+            <p>작성 시간: {{re_comment.created_at|date:'Y-m-d H:i'}}</p>
+            <p>내용 : {{re_comment.body}}</p>
+
+            {% if user == re_comment.author %}
+            <a id="black" href="{% url 'delete_comment' post.id re_comment.id%}">삭제하기</a>
+            <br>
+            {% endif %}
+
+            <hr>
+        </div>
+        <br>
+        {% endif %}
+    {% endfor %} 
+
+    <br><br>
+    <p class="crm">대댓글</p>
+    <form action = "{% url 'create_re_comment' post.id comment.id%}" method = "post" enctype = "multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button id="right" type="submit" class="btn btn-dark">대댓글쓰기</button>
+    </form>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
 {% endblock %}

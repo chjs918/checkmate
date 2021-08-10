@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+  {% block content %}
+  {% load static %}
+
+<style>
+
+  .card-body a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .container {
+    width: 80%;
+  }
+
+  li img {
+    width: 30px;
+    height: 30px;
+  }
+
+
+</style>
+
+  <title>Detail Message</title><br>
+    <h1>쪽지 내용 확인하기</h1><br>
+
+    <div class="container">
+      <div class="card border-dark" style="width: 80%; margin: auto;" >
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><img src="{% static 'email.png' %}"></li>
+        </ul>
+        <div class="card-footer text-muted">보낸 날짜: {{message.send_date|date:'Y-m-d H:i'}}</div>
+        <div class="card-footer text-muted">받는이: {{message.receiver}}</div>
+        <div class="card-footer text-muted">보낸이: {{message.sender}}<hr></div>
+        <div class="card-body">
+          <h4 class="card-title">{{message.content}}</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <a href="{% url 'message:receive_box' %}" class="card-link" style="font-size: large;">받은 쪽지함으로</a><br>
+      <a href="{% url 'message:send_box' %}" class="card-link" style="font-size: large;">보낸 쪽지함으로</a>
+  </div>
+
+{% endblock %}
