@@ -29,5 +29,6 @@ def new_message(request, post_id):
             return redirect('message:send_box')
     else:
         message_form = MessageForm()
-        return render(request, 'new_message.html', {'message_form':message_form})
+        receiver = get_object_or_404(Mate, pk=post_id).writer
+        return render(request, 'new_message.html', {'message_form':message_form, 'receiver':receiver})
 
