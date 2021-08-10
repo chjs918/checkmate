@@ -60,7 +60,7 @@ def edit(request, post_id):
 def delete(request, post_id):
     post_delete =  Mate.objects.get(id = post_id)
     post_delete.delete()
-    return redirect('home')
+    return redirect('main')
 
 def search(request):
     keyword = request.POST.get('keyword', '')
