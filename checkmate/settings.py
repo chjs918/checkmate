@@ -146,3 +146,16 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIA3VUHWCDS4DBOG2XY'
+
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME='chekmate-bucket'
+
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+AWS_S3_CUSTOM_DOMAIN = 'd37gx43o3lnt1n.cloudfront.net'
