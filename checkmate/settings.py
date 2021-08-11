@@ -149,7 +149,7 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 
-AWS_ACCESS_KEY_ID = 'AKIA3VUHWCDS4DBOG2XY'
+AWS_SECRET_ACCESS_KEY = '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'
 
 AWS_REGION = 'ap-northeast-2'
 
@@ -171,5 +171,5 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
-AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
 
