@@ -154,8 +154,16 @@ AWS_ACCESS_KEY_ID = 'AKIA3VUHWCDS4DBOG2XY'
 
 AWS_SECRET_ACCESS_KEY = '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'
 
+AWS_REGION = 'ap-northeast-2'
+
 AWS_STORAGE_BUCKET_NAME='chekmate-bucket'
 
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 
-AWS_S3_CUSTOM_DOMAIN = 'd37gx43o3lnt1n.cloudfront.net'
+AWS_S3_CUSTOM_DOMAIN = 'chekmate-bucket.s3.ap-northeast-2.amazonaws.com'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 1024000000 # value in bytes 1GB here
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024000000
+
+DEFAULT_FILE_STORAGE = 'checkmate.storages.S3DefaultStorage'
+STATICFILES_STORAGE = 'checkmate.storages.S3StaticStorage'
