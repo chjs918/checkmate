@@ -148,16 +148,15 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-
 AWS_SECRET_ACCESS_KEY = '5/FqS8MSA5ta+VC6jdHfssg3eoDpMRj2uhij1sPj'
 
 AWS_REGION = 'ap-northeast-2'
 
-AWS_STORAGE_BUCKET_NAME='chekmate-bucket'
+AWS_STORAGE_BUCKET_NAME='checkmate-bucket'
 
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 
-AWS_S3_CUSTOM_DOMAIN = 'chekmate-bucket.s3.ap-northeast-2.amazonaws.com'
+AWS_S3_CUSTOM_DOMAIN = 'checkmate-bucket.s3.ap-northeast-2.amazonaws.com'
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
