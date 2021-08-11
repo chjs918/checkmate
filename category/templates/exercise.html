@@ -37,6 +37,19 @@
     </div>
   </div>
 
+  <form class="d-flex" action="{% url 'search' %}" method="post">
+    {%csrf_token%}
+    <select name="type">
+        <option value="title">제목</option>
+        <option value="writer">글쓴이</option>
+        <option value="mate_type">메이트 종류</option>
+        <option value="explanation">설명</option>
+        <option value="activity_area">활동 지역</option>
+    </select> 
+    <input class="form-control me-2" type="search" aria-label="Search" placeholder="Search" name="keyword">
+    <button class="btn btn-dark" type="submit">search</button>
+</form><br>
+
 {% for post in posts %}
 {% if post.mate_type == "운동 메이트" %}
 
