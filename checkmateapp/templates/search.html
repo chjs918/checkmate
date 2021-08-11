@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
+<style>
+    h2 a {
+        text-decoration: none;
+        color: black;
+    }
+
+</style>
+
     {% if searched %}
         <h2 style="margin-bottom:50px;"><i>"{{searched}} 검색 결과입니다."</i></h2>
         {% if searched_posts %}
@@ -17,13 +26,13 @@
             <br>
             {{post.mate_type}} | {{post.people_number}} 명
             <br>
-            {{post.activity_area}} 
+            지역 : {{post.activity_area}} 
             </div>
         </article>
 
     {% endfor %}
         {% else %}
-        <pr>No results found.</pr>
+        <pr>찾으시는 정보가 없습니다.</pr>
         {% endif %}
 
     {% else %}
