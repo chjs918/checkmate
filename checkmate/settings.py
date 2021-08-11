@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os
+import os, json
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,8 +151,6 @@ DATABASES['default'].update(db_from_env)
 
 AWS_ACCESS_KEY_ID = 'AKIA3VUHWCDS4DBOG2XY'
 
-AWS_SECRET_ACCESS_KEY = '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'
-
 AWS_REGION = 'ap-northeast-2'
 
 AWS_STORAGE_BUCKET_NAME='chekmate-bucket'
@@ -159,4 +158,18 @@ AWS_STORAGE_BUCKET_NAME='chekmate-bucket'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 AWS_S3_CUSTOM_DOMAIN = 'chekmate-bucket.s3.ap-northeast-2.amazonaws.com'
+
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 
