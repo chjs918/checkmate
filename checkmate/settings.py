@@ -162,8 +162,8 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 AWS_S3_CUSTOM_DOMAIN = 'chekmate-bucket.s3.ap-northeast-2.amazonaws.com'
 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 1024000000 # value in bytes 1GB here
-FILE_UPLOAD_MAX_MEMORY_SIZE = 1024000000
+# DATA_UPLOAD_MAX_MEMORY_SIZE = 1024000000 # value in bytes 1GB here
+# FILE_UPLOAD_MAX_MEMORY_SIZE = 1024000000
 
-DEFAULT_FILE_STORAGE = 'checkmate.storages.S3DefaultStorage'
-STATICFILES_STORAGE = 'checkmate.storages.S3StaticStorage'
+# DEFAULT_FILE_STORAGE = 'checkmate.storages.S3DefaultStorage'
+# STATICFILES_STORAGE = 'checkmate.storages.S3StaticStorage'
