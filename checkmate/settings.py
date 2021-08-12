@@ -148,8 +148,6 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-AWS_SECRET_ACCESS_KEY = '5/FqS8MSA5ta+VC6jdHfssg3eoDpMRj2uhij1sPj'
-
 AWS_REGION = 'ap-northeast-2'
 
 AWS_STORAGE_BUCKET_NAME='checkmate-bucket'
@@ -171,4 +169,5 @@ def get_secret(setting, secrets=secrets):
         raise ImproperlyConfigured(error_msg)
 
 AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 
